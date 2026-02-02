@@ -12,8 +12,10 @@ public class App {
         app.get("/", ctx -> ctx.result("Hello from Tagger!"));
 
         app.get("/generatetags", ctx -> {
-            String artist = ctx.queryParamOrDefault("artist", "Unknown Artist");
-            String song = ctx.queryParamOrDefault("song", "Unknown Song");
+            String artist = ctx.queryParam("artist");
+            String song = ctx.queryParam("song");
+            if (artist == null) artist = "Unknown Artist";
+            if (song == null) song = "Unknown Song";
             ctx.json(Map.of(
                 "message", "Tags generated!",
                 "artist", artist,
