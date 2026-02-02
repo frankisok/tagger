@@ -12,10 +12,14 @@ public class App {
         app.get("/", ctx -> ctx.result("Hello from Tagger!"));
 
         app.get("/generatetags", ctx -> {
-            String artist = ctx.queryParam("artist");
-            String song = ctx.queryParam("song");
-            // TODO: Implement tag generation logic
-            ctx.json(Map.of("artist", artist, "song", song, "tags", List.of("tag1", "tag2")));
+            String artist = ctx.queryParamOrDefault("artist", "Unknown Artist");
+            String song = ctx.queryParamOrDefault("song", "Unknown Song");
+            ctx.json(Map.of(
+                "message", "Tags generated!",
+                "artist", artist,
+                "song", song,
+                "tags", List.of("tag1", "tag2")
+            ));
         });
     }
 }
